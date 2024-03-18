@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '../components/ListProduct';
 
-const Home = () => {
+const Login = () => {
 	return (
 		<div className="">
 			<List />
@@ -9,4 +9,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Login;

@@ -1,0 +1,39 @@
+{
+	"products": [
+		{
+			"id": 1,
+			"name": "Purple women shirt",
+			"image": "/images/product-1.webp",
+			"imageHover": "/images/product-1-hover.webp",
+			"price": 100
+		},
+		{
+			"id": 2,
+			"name": "Sneaker",
+			"image": "/images/product-2.webp",
+			"imageHover": "/images/product-2-hover.webp",
+			"price": 120
+		},
+		{
+			"id": 3,
+			"name": "Tote bag",
+			"image": "/images/product-3.webp",
+			"imageHover": "/images/product-3-hover.webp",
+			"price": 180
+		},
+		{
+			"id": 4,
+			"name": "Purple crop top",
+			"image": "/images/product-4.webp",
+			"imageHover": "/images/product-4-hover.webp",
+			"price": 200
+		}
+	],
+	"comments": [
+		{ "id": "1", "text": "a comment about post 1", "postId": "1" },
+		{ "id": "2", "text": "another comment about post 1", "postId": "1" }
+	],
+	"profile": {
+		"name": "typicode"
+	}
+}
