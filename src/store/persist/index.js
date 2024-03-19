@@ -3,5 +3,5 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 export const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['cart', 'product'],
+	whitelist: ['cart'],
 };
