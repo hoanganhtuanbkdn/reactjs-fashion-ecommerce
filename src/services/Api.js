@@ -15,10 +15,15 @@ const createServiceApi = () => {
 
 	const getProducts = () => api.get('/products');
 
+	const createOrder = (payload) => api.post('/orders', payload);
+	const createOrderDetails = (payload) => api.post('/orderDetails', payload);
+
 	return {
 		api,
 		login,
 		getProducts,
+		createOrder,
+		createOrderDetails,
 	};
 };
 

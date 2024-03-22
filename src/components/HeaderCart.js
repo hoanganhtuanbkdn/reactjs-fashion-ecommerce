@@ -8,6 +8,8 @@ import {
 import { IoClose } from 'react-icons/io5';
 
 import { Image, message } from 'antd';
+import { Link } from 'react-router-dom';
+import { ROUTERS } from '../constants/Routers';
 
 export default function Cart({ toggleShowCart }) {
 	const carts = useSelector((state) => state.cart.carts);
@@ -34,7 +36,7 @@ export default function Cart({ toggleShowCart }) {
 
 	return (
 		<div className="fixed inset-0 z-40 bg-black bg-opacity-70">
-			<div className="w-full lg:w-[450px] h-full flex flex-col bg-white float-right z-50">
+			<div className="w-full lg:w-[450px] h-full relative flex flex-col bg-white float-right z-50">
 				<div className="px-[35px] py-[15px] flex flex-row items-center justify-between bg-[#dcdcdc]">
 					<p>Your Basket ({carts.length})</p>
 					<button className="bg-transparent" onClick={toggleShowCart}>
@@ -111,15 +113,24 @@ export default function Cart({ toggleShowCart }) {
 						</div>
 					</div>
 					<div className="flex flex-col gap-[15px] ">
-						<button className="py-[11px] px-6 bg-[#EAEAEB]">
+						<Link
+							to={ROUTERS.CART}
+							onClick={toggleShowCart}
+							className="py-[11px] px-6 bg-[#EAEAEB] text-center"
+						>
 							View Cart
-						</button>
+						</Link>
+
 						<button className="py-[11px] px-6 bg-black text-white">
 							Checkout
 						</button>
 					</div>
 				</div>
 			</div>
+			<div
+				className="absolute inset-0 z-40 cursor-pointer"
+				onClick={toggleShowCart}
+			/>
 		</div>
 	);
 }

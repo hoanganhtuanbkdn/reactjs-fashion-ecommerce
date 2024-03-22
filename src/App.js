@@ -14,14 +14,18 @@ import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
 import { ConfigProvider } from 'antd';
 import { PersistGate } from 'redux-persist/integration/react';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<Layout />}>
 			<Route index element={<Home />} />
+			<Route path="cart" element={<Cart />} />
+			<Route path="checkout" element={<Checkout />} />
 			<Route path="products" element={<Products />} />
 			<Route path="products/:slug" element={<ProductDetail />} />
-			. <Route path="login" element={<Login />} />
+			<Route path="login" element={<Login />} />
 		</Route>
 	)
 );
@@ -30,7 +34,14 @@ const App = () => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<ConfigProvider theme={{ token: { colorPrimary: '#00b96b' } }}>
+				<ConfigProvider
+					theme={{
+						token: { colorPrimary: '#000a12', borderRadius: 0 },
+						components: {
+							Button: {},
+						},
+					}}
+				>
 					<RouterProvider router={router} />
 				</ConfigProvider>
 			</PersistGate>

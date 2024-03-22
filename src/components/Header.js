@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
 import { LuShoppingBag } from 'react-icons/lu';
-import Cart from './Cart';
+import HeaderCart from './HeaderCart';
 
 export default function Header() {
 	const carts = useSelector((state) => state.cart.carts);
@@ -14,7 +14,7 @@ export default function Header() {
 
 	return (
 		<>
-			<div className=" h-[75px] border border-[rgba(204, 199, 199, 0.35)] sticky top-0 z-10">
+			<div className=" h-[75px] border border-[rgba(204, 199, 199, 0.35)] bg-white sticky top-0 z-40">
 				<div className="container flex flex-row items-center justify-between h-full mx-auto">
 					<div className="">
 						<img
@@ -49,7 +49,7 @@ export default function Header() {
 					</button>
 				</div>
 			</div>
-			{isShowCart && <Cart toggleShowCart={toggleShowCart} />}
+			{isShowCart && <HeaderCart toggleShowCart={toggleShowCart} />}
 		</>
 	);
 }
