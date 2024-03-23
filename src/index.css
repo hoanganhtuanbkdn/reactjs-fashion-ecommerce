@@ -22,4 +22,5 @@ main {
 		#e5f8ff8c 38.63%,
 		#f9e0b014 82.88%
 	);
+	min-height: calc(100vh - 75px);
 }

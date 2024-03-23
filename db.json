@@ -1,63 +1,84 @@
 {
 	"products": [
 		{
-			"id": 1,
+			"id": "1",
 			"name": "Purple women shirt",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/purple-women-shirt.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/Violate-Jacket-hover.webp",
-			"price": 100
+			"price": 100,
+			"categoryId": "1"
 		},
 		{
-			"id": 2,
+			"id": "2",
 			"name": "Sneaker",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/Sneaker.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/sneakers-hover02.webp",
-			"price": 120
+			"price": 120,
+			"categoryId": "1"
 		},
 		{
-			"id": 3,
+			"id": "3",
 			"name": "Tote bag",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/saddle-bag.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/tote-bag.webp",
-			"price": 180
+			"price": 180,
+			"categoryId": "2"
 		},
 		{
-			"id": 4,
+			"id": "4",
 			"name": "Purple crop top",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/purple-crop-top.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/round-neck-violate.webp",
-			"price": 200
+			"price": 200,
+			"categoryId": "2"
 		},
 		{
-			"id": 5,
+			"id": "5",
 			"name": "Women t-shirt",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/11/sea-green-women-t-shirt.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/11/sea-green-women-t-shirt-with-women.webp",
-			"price": 180
+			"price": 180,
+			"categoryId": "3"
 		},
 		{
-			"id": 6,
+			"id": "6",
 			"name": "Black sunglass",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/11/women-black-sunglass-01.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/11/women-black-sunglass.webp",
-			"price": 310
+			"price": 310,
+			"categoryId": "3"
 		},
 		{
-			"id": 7,
+			"id": "7",
 			"name": "Sport innerware",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/women-sport-innerware.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/12/sports-t-shirt.webp",
-			"price": 129
+			"price": 129,
+			"categoryId": "3"
 		},
 		{
-			"id": 8,
+			"id": "8",
 			"name": "Bucket hat",
 			"image": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/11/cotton-bucket-hat.webp",
 			"imageHover": "https://emart.wpthemedemos.com/big-fashion/wp-content/uploads/sites/7/2022/11/cotton-bucket-hat-on-girl.webp",
-			"price": 86
+			"price": 86,
+			"categoryId": "3"
 		}
 	],
-	"category": [],
+	"categories": [
+		{
+			"id": "1",
+			"name": "Best Selling"
+		},
+		{
+			"id": "2",
+			"name": "Big Fashion"
+		},
+		{
+			"id": "3",
+			"name": "New"
+		}
+	],
 	"orders": [
 		{
 			"id": "092a",
