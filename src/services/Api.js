@@ -22,6 +22,8 @@ const createServiceApi = () => {
 				: {}),
 		});
 
+	const getAllProducts = () => api.get('/products');
+
 	const getCategories = () => api.get('/categories?_embed=products');
 
 	const createOrder = (payload) => api.post('/orders', payload);
@@ -34,6 +36,7 @@ const createServiceApi = () => {
 		getCategories,
 		createOrder,
 		createOrderDetails,
+		getAllProducts,
 	};
 };
 

@@ -4,7 +4,7 @@ import { ServiceApi } from '../../services/Api';
 
 export function* getProducts(action) {
 	try {
-		const res = yield call(ServiceApi.getProducts);
+		const res = yield call(ServiceApi.getAllProducts);
 		if (res.ok && res.status === 200) {
 			yield put(getProductsSuccess(res.data));
 		} else {
