@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
-import { LuShoppingBag } from 'react-icons/lu';
 import HeaderCart from './HeaderCart';
+import AuthModal from './Modal/AuthModal';
 
 export default function Header() {
-	const carts = useSelector((state) => state.cart.carts);
-
-	const [isShowCart, setShowCart] = useState(false);
-	const toggleShowCart = () => setShowCart(!isShowCart);
-
 	return (
 		<>
 			<div className=" h-[75px] border border-[rgba(204, 199, 199, 0.35)] bg-white sticky top-0 z-40">
@@ -41,15 +35,12 @@ export default function Header() {
 							Products
 						</NavLink>
 					</div>
-					<button className="relative" onClick={toggleShowCart}>
-						<LuShoppingBag size={20} />
-						<p className="absolute top-[-10px] right-[-10px] text-xs font-bold">
-							{carts.length}
-						</p>
-					</button>
+					<div className="flex flex-row gap-3">
+						<AuthModal />
+						<HeaderCart />
+					</div>
 				</div>
 			</div>
-			{isShowCart && <HeaderCart toggleShowCart={toggleShowCart} />}
 		</>
 	);
 }

@@ -11,7 +11,10 @@ const createServiceApi = () => {
 	});
 
 	const login = async ({ email, password }) =>
-		api.post('/users/login', { email, password });
+		api.post('/login', { email, password });
+
+	const register = async ({ email, password }) =>
+		api.post('/register', { email, password });
 
 	const getProducts = ({ sort, categoryId, priceRange }) =>
 		api.get('/products', {
@@ -32,6 +35,7 @@ const createServiceApi = () => {
 	return {
 		api,
 		login,
+		register,
 		getProducts,
 		getCategories,
 		createOrder,

@@ -37,9 +37,6 @@ const App = () => {
 				<ConfigProvider
 					theme={{
 						token: { colorPrimary: '#000a12', borderRadius: 0 },
-						components: {
-							Button: {},
-						},
 					}}
 				>
 					<RouterProvider router={router} />

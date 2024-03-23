@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	addProductToCart,
 	removeAllProductToCart,
 	removeProductToCart,
 } from '../store/redux/CartSlice';
-import { IoClose } from 'react-icons/io5';
+import { X } from 'lucide-react';
 
-import { Image, message } from 'antd';
+import { Button, Drawer, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
+import { ShoppingBag } from 'lucide-react';
 
 export default function Cart({ toggleShowCart }) {
 	const carts = useSelector((state) => state.cart.carts);
 	const dispatch = useDispatch();
+
+	const [open, setOpen] = useState(false);
+
+	const showDrawer = () => {
+		setOpen(true);
+	};
+
+	const onClose = () => {
+		setOpen(false);
+	};
 
 	const addToCart = (product) => {
 		dispatch(addProductToCart(product));
@@ -35,15 +46,20 @@ export default function Cart({ toggleShowCart }) {
 	};
 
 	return (
-		<div className="fixed inset-0 z-40 bg-black bg-opacity-70">
-			<div className="w-full lg:w-[450px] h-full relative flex flex-col bg-white float-right z-50">
-				<div className="px-[35px] py-[15px] flex flex-row items-center justify-between bg-[#dcdcdc]">
-					<p>Your Basket ({carts.length})</p>
-					<button className="bg-transparent" onClick={toggleShowCart}>
-						<IoClose />
-					</button>
-				</div>
-				<div className="p-[35px] pb-[55px] flex flex-1 flex-col justify-between">
+		<>
+			<Button className="relative" type="text" onClick={showDrawer}>
+				<ShoppingBag size={20} color="#222222" />
+				<p className="absolute text-black top-[-10px] right-0 text-xs font-bold">
+					{carts.length}
+				</p>
+			</Button>
+			<Drawer
+				title={`Your Basket (${carts.length})`}
+				onClose={onClose}
+				open={open}
+				className="w-full lg:w-[450px] h-full relative flex flex-col bg-white float-right z-50"
+			>
+				<div className="flex flex-col justify-between flex-1">
 					<div className="">
 						<p>
 							Buy{' '}
@@ -102,7 +118,7 @@ export default function Cart({ toggleShowCart }) {
 												removeAllToCart(product)
 											}
 										>
-											<IoClose />
+											<X size={15} />
 										</button>
 										<p className="text-sm">
 											$ {product.price}
@@ -126,11 +142,7 @@ export default function Cart({ toggleShowCart }) {
 						</button>
 					</div>
 				</div>
-			</div>
-			<div
-				className="absolute inset-0 z-40 cursor-pointer"
-				onClick={toggleShowCart}
-			/>
-		</div>
+			</Drawer>
+		</>
 	);
 }

@@ -79,7 +79,7 @@ export default function ProductHeader() {
 					size="large"
 					className="w-[300px] text-sm"
 					placeholder="Search with keyword"
-					searchValue={searchValue}
+					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
 					onSearch={handleSearchProduct}
 					allowClear

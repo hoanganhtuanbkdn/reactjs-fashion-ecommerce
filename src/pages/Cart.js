@@ -6,7 +6,7 @@ import {
 	removeProductToCart,
 } from '../store/redux/CartSlice';
 import { Image } from 'antd';
-import { IoCloseCircleOutline } from 'react-icons/io5';
+import { CircleX } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
 
@@ -67,7 +67,7 @@ export default function Cart() {
 												removeAllToCart(item)
 											}
 										>
-											<IoCloseCircleOutline />
+											<CircleX />
 										</button>
 									</td>
 									<td>
