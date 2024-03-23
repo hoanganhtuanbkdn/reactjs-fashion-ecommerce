@@ -16,16 +16,7 @@ const createServiceApi = () => {
 	const register = async ({ email, password }) =>
 		api.post('/register', { email, password });
 
-	const getProducts = ({ sort, categoryId, priceRange }) =>
-		api.get('/products', {
-			...(!!sort ? { _sort: sort } : {}),
-			...(!!categoryId ? { categoryId } : {}),
-			...(!!priceRange && priceRange[0] && priceRange[1]
-				? { price_gte: priceRange[0], price_lte: priceRange[1] }
-				: {}),
-		});
-
-	const getAllProducts = () => api.get('/products');
+	const getProducts = (params) => api.get('/products', params);
 
 	const getCategories = () => api.get('/categories?_embed=products');
 
@@ -40,7 +31,6 @@ const createServiceApi = () => {
 		getCategories,
 		createOrder,
 		createOrderDetails,
-		getAllProducts,
 	};
 };
 

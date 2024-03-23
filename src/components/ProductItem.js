@@ -8,7 +8,7 @@ export default memo(function ProductItem({ item }) {
 
 	const onAdd = (newProduct) => {
 		dispatch(addProductToCart(newProduct));
-		message.success('Thêm sản phẩm thành công');
+		message.success('Added product successfully');
 	};
 	return (
 		<div className="group" onClick={() => onAdd(item)}>

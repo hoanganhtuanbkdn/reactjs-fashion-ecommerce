@@ -42,7 +42,7 @@ export default function Checkout() {
 						});
 					})
 				);
-				message.success('Bạn đã đặt hàng thành công.');
+				message.success('Ordered product successfully');
 				dispatch(resetCart());
 				navigate('/');
 			} else {
@@ -62,9 +62,9 @@ export default function Checkout() {
 			wrapperCol={{ span: 18 }}
 			form={form}
 			onFinish={onFinish}
-			className="container py-10 mx-auto grid grid-cols-3 gap-6"
+			className="container grid grid-cols-3 gap-6 py-10 mx-auto"
 		>
-			<div className="grid col-span-2 bg-white p-6 shadow-md">
+			<div className="grid col-span-2 p-6 bg-white shadow-md">
 				<div className="pb-8">
 					<p className="text-3xl">Billing Details</p>
 				</div>
@@ -111,7 +111,7 @@ export default function Checkout() {
 					<Input />
 				</Form.Item>
 			</div>
-			<div className="grid col-span-1 bg-white p-6 shadow-md">
+			<div className="grid col-span-1 p-6 bg-white shadow-md">
 				<div className="divide-y divide-[#e9e9e9]">
 					<div className="py-5">
 						<p>Cart Totals</p>

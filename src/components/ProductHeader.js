@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Button, Dropdown, Input, message } from 'antd';
 const { Search } = Input;
 
 const SortOptions = {
-	'Sort by popularity': '',
-	'Sort by price: low to hight': 'price',
-	'Sort by price: hight to low': '-price',
+	'id-asc': 'Sort by popularity',
+	'price-asc': 'Sort by price: low to hight',
+	'price-desc': 'Sort by price: hight to low',
 };
 export default function ProductHeader() {
 	const [searchParams, setSearchParams] = useSearchParams();
+	const sortDefault = searchParams.get('sort');
 	const [searchValue, setSearchValue] = useState('');
-	const [sort, setSort] = useState('Sort by popularity');
+	const [sort, setSort] = useState(
+		sortDefault ? SortOptions['id-asc'] : 'Sort by popularity'
+	);
 
 	function handleOrderProduct(value) {
-		setSort(value);
+		setSort(SortOptions[value]);
 		setSearchParams((prevParams) => {
-			if (!SortOptions[value]) {
+			if (!value) {
 				prevParams.delete('sort');
 			} else {
-				prevParams.set('sort', SortOptions[value]);
+				prevParams.set('sort', value);
 			}
 			return prevParams;
 		});
@@ -37,35 +40,25 @@ export default function ProductHeader() {
 
 	const items = [
 		{
-			key: 'Sort by popularity',
+			key: 'id-asc',
 			label: (
-				<button
-					onClick={() => handleOrderProduct('Sort by popularity')}
-				>
+				<button onClick={() => handleOrderProduct('id-asc')}>
 					Sort by popularity
 				</button>
 			),
 		},
 		{
-			key: 'Sort by price: low to hight',
+			key: 'price-asc',
 			label: (
-				<button
-					onClick={() =>
-						handleOrderProduct('Sort by price: low to hight')
-					}
-				>
+				<button onClick={() => handleOrderProduct('price-asc')}>
 					Sort by price: low to hight
 				</button>
 			),
 		},
 		{
-			key: 'Sort by price: hight to low',
+			key: 'price-desc',
 			label: (
-				<button
-					onClick={() =>
-						handleOrderProduct('Sort by price: hight to low')
-					}
-				>
+				<button onClick={() => handleOrderProduct('price-desc')}>
 					Sort by price: hight to low
 				</button>
 			),

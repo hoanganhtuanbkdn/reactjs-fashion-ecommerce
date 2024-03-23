@@ -9,9 +9,6 @@
 		"@testing-library/user-event": "^13.5.0",
 		"antd": "^5.15.3",
 		"apisauce": "3.0.0",
-		"body-parser": "^1.20.2",
-		"fs": "^0.0.1-security",
-		"jsonwebtoken": "^9.0.2",
 		"lucide-react": "^0.363.0",
 		"postcss-antd-fixes": "^0.2.0",
 		"react": "^18.2.0",
@@ -26,7 +23,6 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"server": "npx json-server db.json -p 4000 -m ./node_modules/json-server-auth",
-		"server-auth": "node server.js",
 		"dev": "yarn start & yarn server",
 		"build": "react-scripts build",
 		"test": "react-scripts test",

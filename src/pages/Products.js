@@ -5,7 +5,7 @@ import ProductHeader from '../components/ProductHeader';
 import ProductSidebar from '../components/ProductSidebar';
 import { useSearchParams } from 'react-router-dom';
 import ProductItem from '../components/ProductItem';
-
+import { insertObjectIf } from '../utils';
 const Products = () => {
 	const [searchParams] = useSearchParams();
 
@@ -14,25 +14,37 @@ const Products = () => {
 
 	const getProducts = async () => {
 		setFetching(true);
-		const sort = searchParams.get('sort');
+		const sort = searchParams.get('sort') || '';
+		const sorts = sort.split('-');
+		console.log(111, sort, sorts);
 		const q = searchParams.get('q');
 		const categoryId = searchParams.get('categoryId');
 		const priceRange = searchParams.get('price-range');
+		console.log(333, {
+			...insertObjectIf(sort, {
+				_sort: sorts[0],
+				_order: sorts[1],
+			}),
+			...insertObjectIf(q, { name_like: q }),
+			...insertObjectIf(categoryId, { categoryId }),
+			...insertObjectIf(priceRange, {
+				priceRange: JSON.parse(priceRange),
+			}),
+		});
+
 		const res = await ServiceApi.getProducts({
-			sort,
-			categoryId,
-			...(priceRange && { priceRange: JSON.parse(priceRange) }),
+			...insertObjectIf(sort, {
+				_sort: sorts[0],
+				_order: sorts[1],
+			}),
+			...insertObjectIf(q, { name_like: q }),
+			...insertObjectIf(categoryId, { categoryId }),
+			...insertObjectIf(priceRange, {
+				priceRange: JSON.parse(priceRange),
+			}),
 		});
 		if (res.ok) {
-			if (q) {
-				setProducts(
-					res.data.filter((item) =>
-						item.name.toUpperCase().includes(q.toUpperCase())
-					)
-				);
-			} else {
-				setProducts(res.data);
-			}
+			setProducts(res.data);
 		}
 		setFetching(false);
 	};
