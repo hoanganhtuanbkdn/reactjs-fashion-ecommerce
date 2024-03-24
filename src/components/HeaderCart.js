@@ -11,6 +11,8 @@ import { Button, Drawer, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
 import { ShoppingBag } from 'lucide-react';
+import Price from './Price';
+import { TargetPrice } from '../pages/Cart';
 
 export default function Cart() {
 	const carts = useSelector((state) => state.cart.carts);
@@ -61,16 +63,19 @@ export default function Cart() {
 			>
 				<div className="flex flex-col justify-between flex-1">
 					<div className="">
-						<p>
-							Buy{' '}
-							<span className="text-[#DF4141]">
-								${calculateTotal()}{' '}
-							</span>
-							more for get{' '}
-							<span className="font-semibold">
-								Free Shipping!!
-							</span>
-						</p>
+						{TargetPrice > calculateTotal() ? (
+							<p>
+								Buy{' '}
+								<span className="text-red-400">
+									<Price
+										value={TargetPrice - calculateTotal()}
+									/>
+								</span>{' '}
+								more for get <strong>Free Shipping!!</strong>
+							</p>
+						) : (
+							<p>You get a Free Shipping</p>
+						)}
 						<div className="max-h-full my-4 space-y-3 col overscroll-auto">
 							{carts.map((product) => (
 								<div
@@ -112,7 +117,7 @@ export default function Cart() {
 											</div>
 										</div>
 									</div>
-									<div className="flex flex-col items-end gap-2">
+									<div className="flex flex-col items-end gap-1">
 										<button
 											onClick={() =>
 												removeAllToCart(product)
@@ -120,26 +125,32 @@ export default function Cart() {
 										>
 											<X size={15} />
 										</button>
-										<p className="text-sm">
-											$ {product.price}
-										</p>
+										<Price value={product.price} />
 									</div>
 								</div>
 							))}
 						</div>
 					</div>
-					<div className="flex flex-col gap-[15px] ">
-						<Link
-							to={ROUTERS.CART}
-							onClick={onClose}
-							className="py-[11px] px-6 bg-[#EAEAEB] text-center"
-						>
-							View Cart
+					<div className="flex flex-col gap-[15px] mt-10 ">
+						<Link to={ROUTERS.CART} onClick={onClose}>
+							<Button
+								type="primary"
+								ghost
+								size="large"
+								className="w-full"
+							>
+								View Cart
+							</Button>
 						</Link>
-
-						<button className="py-[11px] px-6 bg-black text-white">
-							Checkout
-						</button>
+						<Link to={ROUTERS.CHECKOUT} onClick={onClose}>
+							<Button
+								type="primary"
+								size="large"
+								className="w-full"
+							>
+								Checkout
+							</Button>
+						</Link>
 					</div>
 				</div>
 			</Drawer>

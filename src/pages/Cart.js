@@ -5,12 +5,13 @@ import {
 	removeAllProductToCart,
 	removeProductToCart,
 } from '../store/redux/CartSlice';
-import { Image } from 'antd';
+import { Button, Image, Input } from 'antd';
 import { CircleX } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
+import Price from '../components/Price';
 
-const TargetPrice = 2000;
+export const TargetPrice = 2000;
 export default function Cart() {
 	const carts = useSelector((state) => state.cart.carts);
 	const dispatch = useDispatch();
@@ -38,13 +39,19 @@ export default function Cart() {
 			<div className="container grid grid-cols-3 gap-6 py-10 mx-auto">
 				<div className="grid col-span-2 p-6 bg-white shadow-md">
 					<div className="p-5 border border-dashed border-[#e9e9e9]">
-						<p>
-							Buy{' '}
-							<span className="text-red-400">
-								${TargetPrice - calculateTotal()}
-							</span>{' '}
-							more for get <strong>Free Shipping!!</strong>
-						</p>
+						{TargetPrice > calculateTotal() ? (
+							<p>
+								Buy{' '}
+								<span className="text-red-400">
+									<Price
+										value={TargetPrice - calculateTotal()}
+									/>
+								</span>{' '}
+								more for get <strong>Free Shipping!!</strong>
+							</p>
+						) : (
+							<p>You get a Free Shipping</p>
+						)}
 					</div>
 					<table class="table-auto w-full mt-6 divide-y divide-[#e9e9e9]">
 						<thead>
@@ -61,14 +68,15 @@ export default function Cart() {
 							{carts.map((item) => (
 								<tr key={item.id} className="[&_td]:pt-4">
 									<td>
-										<button
-											className=""
+										<Button
+											type="text"
+											className="w-[30px]"
 											onClick={() =>
 												removeAllToCart(item)
 											}
 										>
-											<CircleX />
-										</button>
+											<CircleX size={16} />
+										</Button>
 									</td>
 									<td>
 										<Image
@@ -79,7 +87,7 @@ export default function Cart() {
 									</td>
 									<td className="text-left">{item.name}</td>
 									<td className="text-sm text-center">
-										${item.price}
+										<Price value={item.price} />
 									</td>
 									<td className="text-right">
 										<div className="border border-[#d0d0d0] h-[30px] flex flex-row items-center float-right w-[75px]">
@@ -92,7 +100,7 @@ export default function Cart() {
 												<span>-</span>
 											</button>
 											<div className="flex items-center justify-center flex-1">
-												<p>{item.quantity}</p>
+												<Price value={item.quantity} />
 											</div>
 											<button
 												className="flex items-center justify-center flex-1"
@@ -103,51 +111,63 @@ export default function Cart() {
 										</div>
 									</td>
 									<td className="text-sm text-right">
-										${item.quantity * item.price}
+										<Price
+											value={item.quantity * item.price}
+										/>
 									</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
 					<div className="flex flex-row mt-5 pt-5 border-t border-[#e9e9e9]">
-						<input
+						<Input
 							placeholder="Coupon code"
-							className="h-[52px] px-4 w-[154px] border border-[#d3ced2]"
+							size="large"
+							className="!w-[154px] border border-[#d3ced2]"
 						/>
-						<button className="border-none h-[52px] w-[154px] text-white bg-black">
+						<Button
+							type="primary"
+							size="large"
+							className="w-[154px]"
+						>
 							Apply Coupon
-						</button>
+						</Button>
 					</div>
 				</div>
 				<div className="grid col-span-1 p-6 bg-white shadow-md">
-					<div className="divide-y divide-[#e9e9e9]">
-						<div className="py-5">
-							<p>Cart Totals</p>
-						</div>
-						<div className="flex flex-row items-center justify-between py-6">
-							<p>Subtotal</p>
-							<p>${calculateTotal()}</p>
-						</div>
-						<div className="py-5 space-y-4">
-							<div>
-								<p>Shipping</p>
+					<div className="flex flex-col justify-between h-full``1">
+						<div className="divide-y divide-[#e9e9e9]">
+							<div className="py-5">
+								<p className="font-semibold">Cart Totals</p>
 							</div>
-							<div className="flex flex-row items-center justify-between ">
-								<p>Flat rate:</p>
-								<p>$0</p>
+							<div className="flex flex-row items-center justify-between py-6">
+								<p className="font-semibold">Subtotal</p>
+								<Price value={calculateTotal()} />
+							</div>
+							<div className="py-5 space-y-4">
+								<div>
+									<p className="font-semibold">Shipping</p>
+								</div>
+								<div className="flex flex-row items-center justify-between ">
+									<p className="font-semibold">Flat rate:</p>
+									<p>$0</p>
+								</div>
+							</div>
+							<div className="flex flex-row items-center justify-between py-5">
+								<p className="font-semibold">Total</p>
+								<Price value={calculateTotal()} />
 							</div>
 						</div>
-						<div className="flex flex-row items-center justify-between py-5">
-							<p>Total</p>
-							<p>${calculateTotal()}</p>
-						</div>
+						<Link to={ROUTERS.CHECKOUT} className="w-full mt-5">
+							<Button
+								type="primary"
+								size="large"
+								className="w-full "
+							>
+								<p>Proceed To Checkout</p>
+							</Button>
+						</Link>
 					</div>
-					<Link
-						to={ROUTERS.CHECKOUT}
-						className="border-none h-[52px] mt-5 flex items-center justify-center w-full text-white bg-black"
-					>
-						<p>Proceed To Checkout</p>
-					</Link>
 				</div>
 			</div>
 		</main>

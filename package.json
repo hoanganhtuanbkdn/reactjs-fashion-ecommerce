@@ -1,9 +1,10 @@
 {
-	"name": "app3",
+	"name": "reactjs-fashion-ecommerce",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
 		"@ant-design/cssinjs": "^1.18.5",
+		"@emailjs/browser": "^4.3.3",
 		"@reduxjs/toolkit": "^1.9.7",
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^13.4.0",
@@ -12,6 +13,7 @@
 		"apisauce": "3.0.0",
 		"lucide-react": "^0.363.0",
 		"react": "^18.2.0",
+		"react-currency-format": "^1.1.0",
 		"react-dom": "^18.2.0",
 		"react-redux": "^9.1.0",
 		"react-router-dom": "^6.21.3",
@@ -47,11 +49,8 @@
 		]
 	},
 	"devDependencies": {
-		"autoprefixer": "^10.4.15",
 		"json-server": "^0.14.2",
 		"json-server-auth": "^2.1.0",
-		"postcss": "^8.4.28",
-		"postcss-antd-fixes": "^0.2.0",
 		"tailwindcss": "^3.3.3"
 	}
 }

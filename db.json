@@ -92,6 +92,58 @@
       "status": "PENDING",
       "orderDate": "2024-03-22T06:44:31.513Z",
       "price": 880
+    },
+    {
+      "fullName": "Công ty TNHH Tư Vấn và Giải Pháp Công Nghệ Code4Change",
+      "address": "15 Ung Van Khiem",
+      "city": "Quảng Nam",
+      "country": "Vietnam",
+      "phone": "0706145483",
+      "email": "tuanpha.it@gmail.com",
+      "userId": 1,
+      "status": "PENDING",
+      "orderDate": "2024-03-24T13:59:44.996Z",
+      "price": 1075,
+      "id": "OonSVoD"
+    },
+    {
+      "fullName": "Công ty TNHH Tư Vấn và Giải Pháp Công Nghệ Code4Change",
+      "address": "15 Ung Van Khiem",
+      "city": "Quảng Nam",
+      "country": "Vietnam",
+      "phone": "0706145483",
+      "email": "tuanpha.it@gmail.com",
+      "userId": 1,
+      "status": "PENDING",
+      "orderDate": "2024-03-24T14:01:09.782Z",
+      "price": 180,
+      "id": "XMFZk-b"
+    },
+    {
+      "fullName": "Công ty TNHH Tư Vấn và Giải Pháp Công Nghệ Code4Change",
+      "address": "15 Ung Van Khiem",
+      "city": "Quảng Nam",
+      "country": "Vietnam",
+      "phone": "0706145483",
+      "email": "tuanpha.it@gmail.com",
+      "userId": 2,
+      "status": "PENDING",
+      "orderDate": "2024-03-24T16:37:33.817Z",
+      "price": 2110,
+      "id": "108dDkK"
+    },
+    {
+      "fullName": "Công ty TNHH Tư Vấn và Giải Pháp Công Nghệ Code4Change",
+      "address": "15 Ung Van Khiem",
+      "city": "Quảng Nam",
+      "country": "Vietnam",
+      "phone": "0706145483",
+      "email": "tuanpha.it@gmail.com",
+      "userId": 2,
+      "status": "PENDING",
+      "orderDate": "2024-03-24T16:41:26.400Z",
+      "price": 500,
+      "id": "8JlxyxF"
     }
   ],
   "orderDetails": [
@@ -115,43 +167,104 @@
       "productId": 3,
       "quantity": 2,
       "price": 180
+    },
+    {
+      "orderId": "OonSVoD",
+      "productId": "7",
+      "quantity": 1,
+      "price": 129,
+      "id": "yKF9dbC"
+    },
+    {
+      "orderId": "OonSVoD",
+      "productId": "1",
+      "quantity": 1,
+      "price": 100,
+      "id": "jDZFZIM"
+    },
+    {
+      "orderId": "OonSVoD",
+      "productId": "2",
+      "quantity": 3,
+      "price": 120,
+      "id": "y8bDSyE"
+    },
+    {
+      "orderId": "OonSVoD",
+      "productId": "4",
+      "quantity": 2,
+      "price": 200,
+      "id": "jfMNr9I"
+    },
+    {
+      "orderId": "OonSVoD",
+      "productId": "8",
+      "quantity": 1,
+      "price": 86,
+      "id": "nrrjx7a"
+    },
+    {
+      "orderId": "XMFZk-b",
+      "productId": "3",
+      "quantity": 1,
+      "price": 180,
+      "id": "MyF7ajk"
+    },
+    {
+      "orderId": "108dDkK",
+      "productId": "6",
+      "quantity": 5,
+      "price": 310,
+      "id": "wMOyDEJ"
+    },
+    {
+      "orderId": "108dDkK",
+      "productId": "4",
+      "quantity": 1,
+      "price": 200,
+      "id": "itCyWnT"
+    },
+    {
+      "orderId": "108dDkK",
+      "productId": "5",
+      "quantity": 2,
+      "price": 180,
+      "id": "Od_07jd"
+    },
+    {
+      "orderId": "8JlxyxF",
+      "productId": "4",
+      "quantity": 1,
+      "price": 200,
+      "id": "TEhSmcY"
+    },
+    {
+      "orderId": "8JlxyxF",
+      "productId": "2",
+      "quantity": 1,
+      "price": 120,
+      "id": "Oh5eFFV"
+    },
+    {
+      "orderId": "8JlxyxF",
+      "productId": "3",
+      "quantity": 1,
+      "price": 180,
+      "id": "ejVJb_I"
     }
   ],
   "users": [
     {
       "email": "tuanpha.it@gmail.com",
-      "password": "$2a$10$Zvhl4zXM7olPDGNZHteXUet5vE46VGthjoWESj/iWgIIAW8Vnr1R.",
+      "password": "$2a$10$ZM2kBYVcwj3rgRP7AfWoxeF0jRxW7eAAw2yTgcJ3DOhOeYph.j/NK",
       "id": 1
     },
     {
-      "email": "tuanpha.it1@gmail.com",
-      "password": "$2a$10$qmN62f9v7HBS3o6cXpezj.xOYYrAiz8MPG3dvBnDS7pJah8OEDaUC",
+      "email": "tuanpha.it+1@gmail.com",
+      "password": "$2a$10$RAv1mzCk1tJPBlpkfYTzu.Je9RwCvnGcRes1MFr86varrLV6mrK6a",
+      "firstname": "Tuan",
+      "lastname": "Pham",
       "id": 2
-    },
-    {
-      "email": "tuanpha.it3@gmail.com",
-      "password": "$2a$10$dfk2LTnNBXfC7TkEg7Fs..FztvY7joqX4cDyHNDjf3nsKflCYO.CS",
-      "id": 3
-    },
-    {
-      "email": "tuanpha.it4@gmail.com",
-      "password": "$2a$10$IyMc41F5ZOLoy.c3y9c00uW9zpW4DJMBxlCD5.jYWSRJhrCABsB4q",
-      "id": 4
-    },
-    {
-      "email": "tuanpha.it5@gmail.com",
-      "password": "$2a$10$S04PMn1RPAz6CRXaa3wu.OTcNytsNWNT9nyNub2kNpQaMAll.UYk2",
-      "id": 5
-    },
-    {
-      "email": "tuanpha.it6@gmail.com",
-      "password": "$2a$10$hoHKbcM.89N1jbKUF5BQ3.bW/bPC2JB6cr9yKi.mUlaL7gxixUlkG",
-      "id": 6
-    },
-    {
-      "email": "user@code4change.dev",
-      "password": "$2a$10$4iHU5xiRtb9SZunvTR1lGumgSoeyPQSDINcoPCCghe85t9XTCDrA2",
-      "id": 7
     }
   ]
 }

@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../store/redux/CartSlice';
 import { message } from 'antd';
+import Price from './Price';
 
 export default memo(function ProductItem({ item }) {
 	const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default memo(function ProductItem({ item }) {
 			</div>
 			<div className="pt-4 text-center">
 				<p className="font-semibold">{item.name}</p>
-				<p>$ {item.price}</p>
+				<Price value={item.price} />
 			</div>
 		</div>
 	);

@@ -7,11 +7,9 @@ import { useSelector } from 'react-redux';
 import { ChevronDown, Power } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { logoutRequest } from '../../store/redux/AuthSlice';
-import { App } from 'antd';
+import { modal } from '../Layout';
 
 const Auth = () => {
-	const { message, notification, modal } = App.useApp();
-
 	const { token, user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
@@ -38,9 +36,7 @@ const Auth = () => {
 				onOk() {
 					dispatch(logoutRequest());
 				},
-				onCancel() {
-					console.log('Cancel');
-				},
+				onCancel() {},
 			});
 		}
 	};
@@ -65,7 +61,9 @@ const Auth = () => {
 			{user ? (
 				<Dropdown menu={{ items, onClick }}>
 					<Space>
-						<p>{user.email}</p>
+						<p>
+							{user.firstname} {user.lastname}
+						</p>
 						<ChevronDown size={16} />
 					</Space>
 				</Dropdown>

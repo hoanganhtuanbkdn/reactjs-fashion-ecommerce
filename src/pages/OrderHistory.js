@@ -6,13 +6,11 @@ import { ServiceApi } from '../services/Api';
 import { ORDER_STATUS } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import Price from '../components/Price';
-import emailjs from '@emailjs/browser';
 
 export default function Checkout() {
 	const navigate = useNavigate();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const carts = useSelector((state) => state.cart.carts);
-	const user = useSelector((state) => state.auth.user);
 	const billDetails = useSelector((state) => state.cart.billDetails);
 	const dispatch = useDispatch();
 	const calculateTotal = () => {
@@ -29,7 +27,7 @@ export default function Checkout() {
 		try {
 			const resOrder = await ServiceApi.createOrder({
 				...values,
-				userId: user.id, // request login
+				userId: 1, // request login
 				status: ORDER_STATUS.PENDING,
 				orderDate: new Date().toISOString(),
 				price: calculateTotal(),
@@ -47,21 +45,6 @@ export default function Checkout() {
 						});
 					})
 				);
-				emailjs.send(
-					'service_o9xzkin',
-					'template_45r2wr1',
-					{
-						email: user.email,
-						userName: user.firstname + ' ' + user.lastname,
-						orderDate: resOrder.data.orderDate,
-						orderCode: resOrder.data.id,
-						orderPrice: resOrder.data.price,
-					},
-					{
-						publicKey: 'rmmm_AWYPrBXmj97f',
-					}
-				);
-
 				message.success('Ordered product successfully');
 				dispatch(resetCart());
 				navigate('/');

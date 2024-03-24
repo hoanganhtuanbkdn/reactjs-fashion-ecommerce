@@ -16,22 +16,9 @@ const Products = () => {
 		setFetching(true);
 		const sort = searchParams.get('sort') || '';
 		const sorts = sort.split('-');
-		console.log(111, sort, sorts);
 		const q = searchParams.get('q');
 		const categoryId = searchParams.get('categoryId');
 		const priceRange = searchParams.get('price-range');
-		console.log(333, {
-			...insertObjectIf(sort, {
-				_sort: sorts[0],
-				_order: sorts[1],
-			}),
-			...insertObjectIf(q, { name_like: q }),
-			...insertObjectIf(categoryId, { categoryId }),
-			...insertObjectIf(priceRange, {
-				priceRange: JSON.parse(priceRange),
-			}),
-		});
-
 		const res = await ServiceApi.getProducts({
 			...insertObjectIf(sort, {
 				_sort: sorts[0],

@@ -13,6 +13,11 @@ root.render(
 		<ConfigProvider
 			theme={{
 				token: { colorPrimary: '#000a12', borderRadius: 0 },
+				components: {
+					Button: {
+						primaryShadow: 'none',
+					},
+				},
 			}}
 		>
 			<StyleProvider hashPriority="high">

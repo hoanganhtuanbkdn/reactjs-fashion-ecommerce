@@ -27,12 +27,10 @@ function ProductSidebar() {
 	};
 
 	const onChange = (value) => {
-		console.log('onChange: ', value);
 		setSliderValues(value);
 	};
 
 	const onChangeComplete = (value) => {
-		console.log('onChangeComplete: ', value);
 		setSearchParams((prevParams) => {
 			if (!value) {
 				prevParams.delete('price-range');

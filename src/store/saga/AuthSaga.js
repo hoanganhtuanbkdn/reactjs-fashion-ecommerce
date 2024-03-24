@@ -7,6 +7,7 @@ import {
 } from '../redux/AuthSlice';
 import { ServiceApi } from '../../services/Api';
 import { message } from 'antd';
+import emailjs from '@emailjs/browser';
 
 export function* login(action) {
 	try {
@@ -29,12 +30,27 @@ export function* login(action) {
 export function* register(action) {
 	try {
 		const res = yield call(ServiceApi.register, {
+			firstname: action.payload.firstname,
+			lastname: action.payload.lastname,
 			email: action.payload.email,
 			password: action.payload.password,
 		});
-		console.log(222, res);
 		if (res.ok && res.status === 201) {
 			yield put(registerSuccess(res.data));
+			emailjs.send(
+				'service_o9xzkin',
+				'template_nmp6tew',
+				{
+					email: action.payload.email,
+					name:
+						action.payload.firstname +
+						' ' +
+						action.payload.lastname,
+				},
+				{
+					publicKey: 'rmmm_AWYPrBXmj97f',
+				}
+			);
 		} else {
 			message.error(res.data);
 			yield put(registerFailure());

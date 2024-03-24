@@ -10,7 +10,6 @@ export default memo(function Register() {
 	const [form] = Form.useForm();
 
 	const onFinish = (values) => {
-		console.log('Received values of form: ', values);
 		dispatch(registerRequest(values));
 	};
 
@@ -24,6 +23,30 @@ export default memo(function Register() {
 				style={{ width: '100%' }}
 				scrollToFirstError
 			>
+				<Form.Item
+					name="firstname"
+					label="First Name"
+					rules={[
+						{
+							required: true,
+							message: 'Please input your first name',
+						},
+					]}
+				>
+					<Input size="large" className="" />
+				</Form.Item>
+				<Form.Item
+					name="lastname"
+					label="Last Name"
+					rules={[
+						{
+							required: true,
+							message: 'Please input your last name',
+						},
+					]}
+				>
+					<Input size="large" className="" />
+				</Form.Item>
 				<Form.Item
 					name="email"
 					label="E-mail"
@@ -40,7 +63,6 @@ export default memo(function Register() {
 				>
 					<Input size="large" className="" />
 				</Form.Item>
-
 				<Form.Item
 					name="password"
 					label="Password"

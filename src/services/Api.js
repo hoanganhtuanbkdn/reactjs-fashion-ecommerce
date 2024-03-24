@@ -10,11 +10,9 @@ const createServiceApi = () => {
 		baseURL: process.env.REACT_APP_API_URL,
 	});
 
-	const login = async ({ email, password }) =>
-		api.post('/login', { email, password });
+	const login = async (payload) => api.post('/login', payload);
 
-	const register = async ({ email, password }) =>
-		api.post('/register', { email, password });
+	const register = async (payload) => api.post('/register', payload);
 
 	const getProducts = (params) => api.get('/products', params);
 
