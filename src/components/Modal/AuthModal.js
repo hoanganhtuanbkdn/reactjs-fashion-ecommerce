@@ -29,7 +29,6 @@ const Auth = () => {
 	}, [token]);
 
 	const onClick = ({ key }) => {
-		message.info(`Click on item ${key}`);
 		if (key === '3') {
 			confirm({
 				title: 'Logging Out',

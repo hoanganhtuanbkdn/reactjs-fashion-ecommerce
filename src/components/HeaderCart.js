@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
 import { ShoppingBag } from 'lucide-react';
 
-export default function Cart({ toggleShowCart }) {
+export default function Cart() {
 	const carts = useSelector((state) => state.cart.carts);
 	const dispatch = useDispatch();
 
@@ -131,7 +131,7 @@ export default function Cart({ toggleShowCart }) {
 					<div className="flex flex-col gap-[15px] ">
 						<Link
 							to={ROUTERS.CART}
-							onClick={toggleShowCart}
+							onClick={onClose}
 							className="py-[11px] px-6 bg-[#EAEAEB] text-center"
 						>
 							View Cart
