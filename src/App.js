@@ -12,7 +12,6 @@ import Layout from './components/Layout';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
-import { ConfigProvider } from 'antd';
 import { PersistGate } from 'redux-persist/integration/react';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
@@ -34,13 +33,7 @@ const App = () => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<ConfigProvider
-					theme={{
-						token: { colorPrimary: '#000a12', borderRadius: 0 },
-					}}
-				>
-					<RouterProvider router={router} />
-				</ConfigProvider>
+				<RouterProvider router={router} />
 			</PersistGate>
 		</Provider>
 	);

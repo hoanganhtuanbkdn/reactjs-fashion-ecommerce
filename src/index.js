@@ -3,11 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import { ConfigProvider } from 'antd';
+import { StyleProvider } from '@ant-design/cssinjs';
+import { App as Theme } from 'antd';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<>
-		<App />
+		<ConfigProvider
+			theme={{
+				token: { colorPrimary: '#000a12', borderRadius: 0 },
+			}}
+		>
+			<StyleProvider hashPriority="high">
+				<Theme>
+					<App />
+				</Theme>
+			</StyleProvider>
+		</ConfigProvider>
 	</>
 );
 

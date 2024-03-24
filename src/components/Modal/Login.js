@@ -22,6 +22,10 @@ export default memo(function Login() {
 				onFinish={onFinish}
 				style={{ width: '100%' }}
 				scrollToFirstError
+				initialValues={{
+					email: 'user@code4change.dev',
+					password: 'code4change',
+				}}
 			>
 				<Form.Item
 					name="email"
@@ -37,7 +41,7 @@ export default memo(function Login() {
 						},
 					]}
 				>
-					<Input size="large" className="" />
+					<Input size="large" />
 				</Form.Item>
 
 				<Form.Item
@@ -54,16 +58,9 @@ export default memo(function Login() {
 					<Input.Password size="large" />
 				</Form.Item>
 
-				<div className="space-x-6">
-					<Button
-						type="primary"
-						className="bg-black"
-						htmlType="submit"
-						loading={fetching}
-					>
-						Login
-					</Button>
-				</div>
+				<Button type="primary" htmlType="submit" loading={fetching}>
+					Login
+				</Button>
 			</Form>
 		</div>
 	);

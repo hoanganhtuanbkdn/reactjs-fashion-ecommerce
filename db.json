@@ -147,6 +147,11 @@
       "email": "tuanpha.it6@gmail.com",
       "password": "$2a$10$hoHKbcM.89N1jbKUF5BQ3.bW/bPC2JB6cr9yKi.mUlaL7gxixUlkG",
       "id": 6
+    },
+    {
+      "email": "user@code4change.dev",
+      "password": "$2a$10$4iHU5xiRtb9SZunvTR1lGumgSoeyPQSDINcoPCCghe85t9XTCDrA2",
+      "id": 7
     }
   ]
 }

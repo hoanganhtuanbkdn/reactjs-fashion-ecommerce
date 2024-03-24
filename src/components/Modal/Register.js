@@ -81,18 +81,11 @@ export default memo(function Register() {
 						}),
 					]}
 				>
-					<Input.Password />
+					<Input.Password size="large" />
 				</Form.Item>
-				<div className="space-x-6">
-					<Button
-						type="primary"
-						className="bg-black"
-						htmlType="submit"
-						loading={fetching}
-					>
-						Register
-					</Button>
-				</div>
+				<Button type="primary" htmlType="submit" loading={fetching}>
+					Register
+				</Button>
 			</Form>
 		</div>
 	);

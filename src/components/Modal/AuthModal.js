@@ -7,9 +7,11 @@ import { useSelector } from 'react-redux';
 import { ChevronDown, Power } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { logoutRequest } from '../../store/redux/AuthSlice';
-const { confirm } = Modal;
+import { App } from 'antd';
 
 const Auth = () => {
+	const { message, notification, modal } = App.useApp();
+
 	const { token, user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
@@ -30,9 +32,8 @@ const Auth = () => {
 
 	const onClick = ({ key }) => {
 		if (key === '3') {
-			confirm({
+			modal.confirm({
 				title: 'Logging Out',
-				icon: <Power size={15} />,
 				content: 'Do you Want to logout?',
 				onOk() {
 					dispatch(logoutRequest());
