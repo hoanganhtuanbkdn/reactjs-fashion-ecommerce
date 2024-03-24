@@ -55,7 +55,7 @@ export default function Checkout() {
 						userName: user.firstname + ' ' + user.lastname,
 						orderDate: resOrder.data.orderDate,
 						orderCode: resOrder.data.id,
-						orderPrice: resOrder.data.price,
+						orderPrice: '$ ' + resOrder.data.price,
 					},
 					{
 						publicKey: 'rmmm_AWYPrBXmj97f',

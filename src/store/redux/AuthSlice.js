@@ -29,6 +29,7 @@ export const authSlice = createSlice({
 			state.fetching = true;
 		},
 		registerSuccess: (state, action) => {
+			console.log(111, action);
 			state.user = action.payload.user;
 			state.token = action.payload.accessToken;
 			state.fetching = false;

@@ -35,6 +35,8 @@ export function* register(action) {
 			email: action.payload.email,
 			password: action.payload.password,
 		});
+		console.log(22, res);
+
 		if (res.ok && res.status === 201) {
 			yield put(registerSuccess(res.data));
 			emailjs.send(
