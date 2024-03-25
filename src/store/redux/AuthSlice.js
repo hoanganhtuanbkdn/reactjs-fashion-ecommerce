@@ -29,7 +29,6 @@ export const authSlice = createSlice({
 			state.fetching = true;
 		},
 		registerSuccess: (state, action) => {
-			console.log(111, action);
 			state.user = action.payload.user;
 			state.token = action.payload.accessToken;
 			state.fetching = false;
@@ -44,6 +43,16 @@ export const authSlice = createSlice({
 			state.token = null;
 			state.fetching = false;
 		},
+		updateUserRequest: (state) => {
+			state.fetching = true;
+		},
+		updateUserSuccess: (state, action) => {
+			state.user = action.payload;
+			state.fetching = false;
+		},
+		updateUserFailure: (state) => {
+			state.fetching = false;
+		},
 	},
 });
 
@@ -56,6 +65,9 @@ export const {
 	registerSuccess,
 	registerFailure,
 	logoutRequest,
+	updateUserRequest,
+	updateUserSuccess,
+	updateUserFailure,
 } = authSlice.actions;
 
 export const AUTH_PERSIST_KEY = 'authPersist';

@@ -41,7 +41,7 @@ export default function Checkout() {
 					carts.map(async (cart) => {
 						await ServiceApi.createOrderDetails({
 							orderId: resOrder.data.id,
-							productId: cart.id,
+							product: cart,
 							quantity: cart.quantity,
 							price: cart.price,
 						});

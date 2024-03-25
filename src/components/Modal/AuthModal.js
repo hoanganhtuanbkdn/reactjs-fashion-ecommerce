@@ -8,10 +8,13 @@ import { ChevronDown, Power } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { logoutRequest } from '../../store/redux/AuthSlice';
 import { modal } from '../Layout';
+import { useNavigate } from 'react-router-dom';
+import { ROUTERS } from '../../constants/Routers';
 
 const Auth = () => {
 	const { token, user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 
 	const showModal = () => {
@@ -29,6 +32,12 @@ const Auth = () => {
 	}, [token]);
 
 	const onClick = ({ key }) => {
+		if (key === '1') {
+			navigate(ROUTERS.PROFILE);
+		}
+		if (key === '2') {
+			navigate(ROUTERS.ORDER_HISTORY);
+		}
 		if (key === '3') {
 			modal.confirm({
 				title: 'Logging Out',

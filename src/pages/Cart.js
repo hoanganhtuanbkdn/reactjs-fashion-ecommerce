@@ -100,7 +100,7 @@ export default function Cart() {
 												<span>-</span>
 											</button>
 											<div className="flex items-center justify-center flex-1">
-												<Price value={item.quantity} />
+												<p>{item.quantity}</p>
 											</div>
 											<button
 												className="flex items-center justify-center flex-1"

@@ -18,8 +18,13 @@ const createServiceApi = () => {
 
 	const getCategories = () => api.get('/categories?_embed=products');
 
+	const getOrders = (params) => api.get('/orders', params);
+	const deleteOrders = (orderId) => api.delete('/orders/' + orderId);
+
 	const createOrder = (payload) => api.post('/orders', payload);
 	const createOrderDetails = (payload) => api.post('/orderDetails', payload);
+	const updateUser = (id, payload) => api.patch('/users/' + id, payload);
+	const getUserById = (id) => api.get('/users/' + id);
 
 	return {
 		api,
@@ -29,6 +34,10 @@ const createServiceApi = () => {
 		getCategories,
 		createOrder,
 		createOrderDetails,
+		getOrders,
+		deleteOrders,
+		updateUser,
+		getUserById,
 	};
 };
 

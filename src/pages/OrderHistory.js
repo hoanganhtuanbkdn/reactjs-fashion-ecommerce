@@ -1,167 +1,175 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { resetCart, setBillDetails } from '../store/redux/CartSlice';
-import { Button, Form, Input, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Button, Image, Popconfirm, Table, message } from 'antd';
 import { ServiceApi } from '../services/Api';
-import { ORDER_STATUS } from '../constants';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import Price from '../components/Price';
+import { insertObjectIf } from '../utils';
+import moment from 'moment';
+import { ROUTERS } from '../constants/Routers';
+import AuthSidebar from '../components/AuthSidebar';
+export default function OrderHistory() {
+	const user = useSelector((state) => state.auth.user);
+	const [searchParams] = useSearchParams();
 
-export default function Checkout() {
-	const navigate = useNavigate();
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const carts = useSelector((state) => state.cart.carts);
-	const billDetails = useSelector((state) => state.cart.billDetails);
-	const dispatch = useDispatch();
-	const calculateTotal = () => {
-		return carts.reduce(
-			(total, item) => total + item.quantity * item.price,
-			0
-		);
-	};
+	const [orders, setOrders] = useState([]);
+	const [fetching, setFetching] = useState([]);
 
-	const [form] = Form.useForm();
-
-	const onFinish = async (values) => {
-		setIsSubmitting(true);
-		try {
-			const resOrder = await ServiceApi.createOrder({
-				...values,
-				userId: 1, // request login
-				status: ORDER_STATUS.PENDING,
-				orderDate: new Date().toISOString(),
-				price: calculateTotal(),
-			});
-
-			if (resOrder.ok) {
-				dispatch(setBillDetails(values));
-				await Promise.all(
-					carts.map(async (cart) => {
-						await ServiceApi.createOrderDetails({
-							orderId: resOrder.data.id,
-							productId: cart.id,
-							quantity: cart.quantity,
-							price: cart.price,
-						});
-					})
-				);
-				message.success('Ordered product successfully');
-				dispatch(resetCart());
-				navigate('/');
-			} else {
-				message.error('Đặt hàng không thành công');
-			}
-		} catch (e) {
-			message.error(e.message);
-		} finally {
-			setIsSubmitting(false);
+	const getOrders = async () => {
+		setFetching(true);
+		const res = await ServiceApi.getOrders({
+			_embed: 'orderDetails',
+			...insertObjectIf(user, { userId: user.id }),
+		});
+		if (res.ok) {
+			setOrders(res.data);
 		}
+		setFetching(false);
 	};
+
+	useEffect(() => {
+		if (user) {
+			getOrders();
+		}
+	}, [searchParams, user]);
+
+	const confirm = async (id) => {
+		await ServiceApi.deleteOrders(id);
+		await getOrders();
+		message.success('Deleted order successfully');
+	};
+
+	const columns = [
+		{ title: 'Code', dataIndex: 'id', key: 'id' },
+		Table.EXPAND_COLUMN,
+		{
+			title: 'Bill Detail',
+			render: (text, record, index) => (
+				<div className="flex flex-col">
+					<p className="text-xs">{record.fullName}</p>
+					<p className="text-xs">
+						{[
+							record.phone,
+							record.email,
+							record.address,
+							record.city,
+							record.country,
+						].join(', ')}
+					</p>
+				</div>
+			),
+		},
+		{
+			title: 'Price',
+			dataIndex: 'price',
+			key: 'price',
+			render: (value) => <Price value={value} />,
+		},
+		{ title: 'Status', dataIndex: 'status', key: 'status' },
+		{
+			title: 'Order Date',
+			dataIndex: 'orderDate',
+			key: 'orderDate',
+			render: (value) => moment(value).format('YYYY.MM.DD hh:mm'),
+		},
+		{
+			title: 'Action',
+			key: 'operation',
+			fixed: 'right',
+			width: 100,
+			render: (_, record) => (
+				<Popconfirm
+					title="Delete the order"
+					description="Are you sure to delete this order?"
+					onConfirm={() => confirm(record.id)}
+					okText="Yes"
+					cancelText="No"
+				>
+					<Button danger size="small">
+						Delete
+					</Button>
+				</Popconfirm>
+			),
+		},
+	];
 
 	return (
 		<div className="container py-10 mx-auto min-h-[calc(100vh_-_139px)]">
-			<Form
-				size="large"
-				labelCol={{ span: 4 }}
-				wrapperCol={{ span: 18 }}
-				form={form}
-				initialValues={{
-					...billDetails,
-				}}
-				onFinish={onFinish}
-			>
-				<div className="grid grid-cols-3 gap-6">
-					<div className="grid col-span-2 p-6 bg-white shadow-md">
-						<div className="pb-8">
-							<p className="text-3xl">Billing Details</p>
-						</div>
-						<Form.Item
-							name="fullName"
-							label="Full Name"
-							rules={[{ required: true }]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="address"
-							label="Address"
-							rules={[{ required: true }]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="city"
-							label="City"
-							rules={[{ required: true }]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="country"
-							label="Country"
-							rules={[{ required: true }]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="phone"
-							label="Phone"
-							rules={[{ required: true }]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="email"
-							label="Email"
-							rules={[{ required: true }]}
-						>
-							<Input />
-						</Form.Item>
-					</div>
-					<div className="grid col-span-1 p-6 bg-white shadow-md">
-						<div className="flex flex-col justify-between h-full``1">
-							<div className="divide-y divide-[#e9e9e9]">
-								<div className="py-5">
-									<p className="font-semibold">Cart Totals</p>
+			<div className="grid grid-cols-5 gap-6">
+				<AuthSidebar />
+				<div className="grid col-span-4 p-6 bg-white shadow-md">
+					<Table
+						columns={columns}
+						loading={fetching}
+						expandable={{
+							expandedRowRender: (record) => (
+								<div>
+									<table class="table-auto w-full ">
+										<thead>
+											<tr className="[&_th]:py-2">
+												<th></th>
+												<th className="text-left">
+													Products
+												</th>
+												<th className="text-center">
+													Price
+												</th>
+												<th className="text-center">
+													Quantity
+												</th>
+												<th className="text-right">
+													Total
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											{record.orderDetails.map((item) => (
+												<tr
+													key={item.id}
+													className="[&_td]:pt-2"
+												>
+													<td>
+														<Image
+															src={
+																item.product
+																	.image
+															}
+															width={60}
+															height={60}
+														/>
+													</td>
+													<td className="text-left">
+														{item.product.name}
+													</td>
+													<td className="text-sm text-center">
+														<Price
+															value={item.price}
+														/>
+													</td>
+													<td>
+														<p className="text-center w-full">
+															{item.quantity}
+														</p>
+													</td>
+													<td className="text-sm text-right">
+														<Price
+															value={
+																item.quantity *
+																item.price
+															}
+														/>
+													</td>
+												</tr>
+											))}
+										</tbody>
+									</table>
 								</div>
-								<div className="flex flex-row items-center justify-between py-6">
-									<p className="font-semibold">Subtotal</p>
-									<p className="font-semibold">
-										<Price value={calculateTotal()} />
-									</p>
-								</div>
-								<div className="py-5 space-y-4">
-									<div>
-										<p className="font-semibold">
-											Shipping
-										</p>
-									</div>
-									<div className="flex flex-row items-center justify-between ">
-										<p className="font-semibold">
-											Flat rate:
-										</p>
-										<p>$0</p>
-									</div>
-								</div>
-								<div className="flex flex-row items-center justify-between py-5">
-									<p className="font-semibold">Total</p>
-									<p className="font-semibold">
-										<Price value={calculateTotal()} />
-									</p>
-								</div>
-							</div>
-							<Button
-								type="primary"
-								htmlType="submit"
-								loading={isSubmitting}
-								className="w-full mt-5 "
-							>
-								Proceed To Checkout
-							</Button>
-						</div>
-					</div>
+							),
+						}}
+						dataSource={orders}
+					/>
 				</div>
-			</Form>
+			</div>
 		</div>
 	);
 }

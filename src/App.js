@@ -15,16 +15,21 @@ import Login from './pages/Login';
 import { PersistGate } from 'redux-persist/integration/react';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import OrderHistory from './pages/OrderHistory';
+import { ROUTERS } from './constants/Routers';
+import Profile from './pages/Profile';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<Layout />}>
 			<Route index element={<Home />} />
-			<Route path="cart" element={<Cart />} />
-			<Route path="checkout" element={<Checkout />} />
-			<Route path="products" element={<Products />} />
-			<Route path="products/:slug" element={<ProductDetail />} />
-			<Route path="login" element={<Login />} />
+			<Route path={ROUTERS.CART} element={<Cart />} />
+			<Route path={ROUTERS.CHECKOUT} element={<Checkout />} />
+			<Route path={ROUTERS.PRODUCTS} element={<Products />} />
+			<Route path={ROUTERS.PRODUCT_DETAIL} element={<ProductDetail />} />
+			<Route path={ROUTERS.LOGIN} element={<Login />} />
+			<Route path={ROUTERS.PROFILE} element={<Profile />} />
+			<Route path={ROUTERS.ORDER_HISTORY} element={<OrderHistory />} />
 		</Route>
 	)
 );

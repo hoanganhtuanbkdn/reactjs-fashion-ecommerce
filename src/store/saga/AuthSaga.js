@@ -4,6 +4,8 @@ import {
 	loginSuccess,
 	registerFailure,
 	registerSuccess,
+	updateUserFailure,
+	updateUserSuccess,
 } from '../redux/AuthSlice';
 import { ServiceApi } from '../../services/Api';
 import { message } from 'antd';
@@ -35,8 +37,6 @@ export function* register(action) {
 			email: action.payload.email,
 			password: action.payload.password,
 		});
-		console.log(22, res);
-
 		if (res.ok && res.status === 201) {
 			yield put(registerSuccess(res.data));
 			emailjs.send(
@@ -60,5 +60,29 @@ export function* register(action) {
 	} catch (error) {
 		message.error(error.message);
 		yield put(registerFailure());
+	}
+}
+
+export function* updateUser(action) {
+	try {
+		const res = yield call(ServiceApi.updateUser, action.payload.id, {
+			email: action.payload.email,
+			firstname: action.payload.firstname,
+			lastname: action.payload.lastname,
+		});
+		if (res.ok && res.status === 200) {
+			yield put(
+				updateUserSuccess({
+					...action.payload,
+				})
+			);
+			message.success('Updated profile successfully');
+		} else {
+			message.error(res.data);
+			yield put(updateUserFailure());
+		}
+	} catch (error) {
+		message.error(error.message);
+		yield put(updateUserFailure());
 	}
 }
