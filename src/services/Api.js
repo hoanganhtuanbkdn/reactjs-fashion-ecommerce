@@ -27,6 +27,9 @@ const createServiceApi = () => {
 	const updateUser = (id, payload) => api.patch('/users/' + id, payload);
 	const getUserById = (id) => api.get('/users/' + id);
 
+	const createComment = (payload) => api.post('/comments', payload);
+	const getCommentsByProductId = (params) => api.get('/comments/', params);
+
 	return {
 		api,
 		login,
@@ -40,6 +43,8 @@ const createServiceApi = () => {
 		deleteOrders,
 		updateUser,
 		getUserById,
+		createComment,
+		getCommentsByProductId,
 	};
 };
 

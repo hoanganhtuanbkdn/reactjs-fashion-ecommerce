@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../store/redux/CartSlice';
 import { message } from 'antd';
-import Price from '../components/Price';
+import Price from './Price';
 import { Link } from 'react-router-dom';
 import { ROUTERS } from '../constants/Routers';
 

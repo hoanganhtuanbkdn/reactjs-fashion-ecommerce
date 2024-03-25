@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../store/redux/CartSlice';
 import { message } from '../components/Layout';
 import { ROUTERS } from '../constants/Routers';
+import Reviews from '../components/Reviews';
 function ProductDetail() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -113,6 +114,7 @@ function ProductDetail() {
 							</div>
 						</div>
 					</div>
+					<Reviews detail={detail} />
 				</div>
 			)}
 		</div>

@@ -11,7 +11,6 @@ import {
 import Layout from './components/Layout';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
-import Login from './pages/Login';
 import { PersistGate } from 'redux-persist/integration/react';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
@@ -27,7 +26,6 @@ const router = createBrowserRouter(
 			<Route path={ROUTERS.CHECKOUT} element={<Checkout />} />
 			<Route path={ROUTERS.PRODUCTS} element={<Products />} />
 			<Route path={ROUTERS.PRODUCT_DETAIL} element={<ProductDetail />} />
-			<Route path={ROUTERS.LOGIN} element={<Login />} />
 			<Route path={ROUTERS.PROFILE} element={<Profile />} />
 			<Route path={ROUTERS.ORDER_HISTORY} element={<OrderHistory />} />
 		</Route>
