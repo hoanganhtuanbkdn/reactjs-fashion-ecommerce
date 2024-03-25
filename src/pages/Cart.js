@@ -34,23 +34,27 @@ export default function Cart() {
 			0
 		);
 	};
+
+	const totalPrice = calculateTotal();
+
+	// TargetPrice là một hạn mức do Chủ Shop tạo ra, nếu tổng tiền đơn hàng lớn hơn hoặc bằng hạn mức này thì sẽ được free ship
+	const isFreeShip = TargetPrice <= totalPrice;
+
 	return (
 		<main>
 			<div className="container grid grid-cols-3 gap-6 py-10 mx-auto">
 				<div className="grid col-span-2 p-6 bg-white shadow-md">
 					<div className="p-5 border border-dashed border-[#e9e9e9]">
-						{TargetPrice > calculateTotal() ? (
+						{isFreeShip ? (
+							<p>You get a Free Shipping</p>
+						) : (
 							<p>
 								Buy{' '}
 								<span className="text-red-400">
-									<Price
-										value={TargetPrice - calculateTotal()}
-									/>
+									<Price value={TargetPrice - totalPrice} />
 								</span>{' '}
 								more for get <strong>Free Shipping!!</strong>
 							</p>
-						) : (
-							<p>You get a Free Shipping</p>
 						)}
 					</div>
 					<table class="table-auto w-full mt-6 divide-y divide-[#e9e9e9]">
@@ -142,7 +146,7 @@ export default function Cart() {
 							</div>
 							<div className="flex flex-row items-center justify-between py-6">
 								<p className="font-semibold">Subtotal</p>
-								<Price value={calculateTotal()} />
+								<Price value={totalPrice} />
 							</div>
 							<div className="py-5 space-y-4">
 								<div>
@@ -155,7 +159,7 @@ export default function Cart() {
 							</div>
 							<div className="flex flex-row items-center justify-between py-5">
 								<p className="font-semibold">Total</p>
-								<Price value={calculateTotal()} />
+								<Price value={totalPrice} />
 							</div>
 						</div>
 						<Link to={ROUTERS.CHECKOUT} className="w-full mt-5">

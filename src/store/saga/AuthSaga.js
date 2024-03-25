@@ -4,12 +4,13 @@ import {
 	loginSuccess,
 	registerFailure,
 	registerSuccess,
+	setShowAuthModal,
 	updateUserFailure,
 	updateUserSuccess,
 } from '../redux/AuthSlice';
 import { ServiceApi } from '../../services/Api';
 import { message } from 'antd';
-import emailjs from '@emailjs/browser';
+import { sentRegisterSuccessEmail } from '../../services/Email';
 
 export function* login(action) {
 	try {
@@ -19,6 +20,8 @@ export function* login(action) {
 		});
 		if (res.ok && res.status === 200) {
 			yield put(loginSuccess(res.data));
+			// Đóng modal login sau khi login thành công
+			yield put(setShowAuthModal(false));
 		} else {
 			message.error(res.data);
 			yield put(loginFailure());
@@ -39,20 +42,10 @@ export function* register(action) {
 		});
 		if (res.ok && res.status === 201) {
 			yield put(registerSuccess(res.data));
-			emailjs.send(
-				'service_o9xzkin',
-				'template_nmp6tew',
-				{
-					email: action.payload.email,
-					name:
-						action.payload.firstname +
-						' ' +
-						action.payload.lastname,
-				},
-				{
-					publicKey: 'rmmm_AWYPrBXmj97f',
-				}
-			);
+			// Đóng modal đăng ký sau khi login thành công
+			yield put(setShowAuthModal(false));
+			// Gửi email thông báo cho người dùng sau khi đăng ký tài khoản thành công
+			sentRegisterSuccessEmail(action.payload);
 		} else {
 			message.error(res.data);
 			yield put(registerFailure());

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Image, Popconfirm, Table, message } from 'antd';
 import { ServiceApi } from '../services/Api';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import Price from '../components/Price';
 import { insertObjectIf } from '../utils';
 import moment from 'moment';
-import { ROUTERS } from '../constants/Routers';
+import { setShowAuthModal } from '../store/redux/AuthSlice';
 import AuthSidebar from '../components/AuthSidebar';
 export default function OrderHistory() {
 	const user = useSelector((state) => state.auth.user);
 	const [searchParams] = useSearchParams();
-
+	const dispatch = useDispatch();
 	const [orders, setOrders] = useState([]);
 	const [fetching, setFetching] = useState([]);
 
@@ -30,6 +30,9 @@ export default function OrderHistory() {
 	useEffect(() => {
 		if (user) {
 			getOrders();
+		} else {
+			// Trang lịch sử đặt hàng yêu cầu phải đăng nhập, nếu chưa đặt nhập mà di chuyển đến trang thì mở modal login để user đăng nhập
+			dispatch(setShowAuthModal(true));
 		}
 	}, [searchParams, user]);
 

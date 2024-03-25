@@ -6,7 +6,9 @@ import { ServiceApi } from '../services/Api';
 import { ORDER_STATUS } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import Price from '../components/Price';
-import emailjs from '@emailjs/browser';
+import { setShowAuthModal } from '../store/redux/AuthSlice';
+import { sentOrderSuccessEmail } from '../services/Email';
+import { ROUTERS } from '../constants/Routers';
 
 export default function Checkout() {
 	const navigate = useNavigate();
@@ -21,10 +23,17 @@ export default function Checkout() {
 			0
 		);
 	};
+	const totalPrice = calculateTotal();
 
 	const [form] = Form.useForm();
 
 	const onFinish = async (values) => {
+		if (!user) {
+			// Mở modal login nếu chưa login
+			dispatch(setShowAuthModal(true));
+			return;
+		}
+
 		setIsSubmitting(true);
 		try {
 			const resOrder = await ServiceApi.createOrder({
@@ -32,10 +41,11 @@ export default function Checkout() {
 				userId: user.id, // request login
 				status: ORDER_STATUS.PENDING,
 				orderDate: new Date().toISOString(),
-				price: calculateTotal(),
+				price: totalPrice,
 			});
 
 			if (resOrder.ok) {
+				// Lưu lại thông tin đặt hàng để tự động điền cho lần sau
 				dispatch(setBillDetails(values));
 				await Promise.all(
 					carts.map(async (cart) => {
@@ -47,24 +57,20 @@ export default function Checkout() {
 						});
 					})
 				);
-				emailjs.send(
-					'service_o9xzkin',
-					'template_45r2wr1',
-					{
-						email: user.email,
-						userName: user.firstname + ' ' + user.lastname,
-						orderDate: resOrder.data.orderDate,
-						orderCode: resOrder.data.id,
-						orderPrice: '$ ' + resOrder.data.price,
-					},
-					{
-						publicKey: 'rmmm_AWYPrBXmj97f',
-					}
-				);
+				// Gửi email thông báo cho người dùng khi người dùng đặt hàng thành công
+				sentOrderSuccessEmail({
+					email: user.email,
+					userName: user.firstname + ' ' + user.lastname,
+					orderDate: resOrder.data.orderDate,
+					orderCode: resOrder.data.id,
+					orderPrice: '$ ' + resOrder.data.price,
+				});
 
 				message.success('Ordered product successfully');
+				// Xóa dữ liệu giỏ hàng sau khi đặt hàng thành công
 				dispatch(resetCart());
-				navigate('/');
+				// Di chuyển về trang chủ
+				navigate(ROUTERS.HOME);
 			} else {
 				message.error('Đặt hàng không thành công');
 			}
@@ -84,6 +90,7 @@ export default function Checkout() {
 				form={form}
 				initialValues={{
 					...billDetails,
+					// sử dụng thông tin đặt hàng đã được lưu vào redux từ đơn đặt hàng trước để tự động điền cho người dùng
 				}}
 				onFinish={onFinish}
 			>
@@ -144,7 +151,7 @@ export default function Checkout() {
 								<div className="flex flex-row items-center justify-between py-6">
 									<p className="font-semibold">Subtotal</p>
 									<p className="font-semibold">
-										<Price value={calculateTotal()} />
+										<Price value={totalPrice} />
 									</p>
 								</div>
 								<div className="py-5 space-y-4">
@@ -163,7 +170,7 @@ export default function Checkout() {
 								<div className="flex flex-row items-center justify-between py-5">
 									<p className="font-semibold">Total</p>
 									<p className="font-semibold">
-										<Price value={calculateTotal()} />
+										<Price value={totalPrice} />
 									</p>
 								</div>
 							</div>

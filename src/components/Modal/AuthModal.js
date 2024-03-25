@@ -6,30 +6,23 @@ import Register from './Register';
 import { useSelector } from 'react-redux';
 import { ChevronDown, Power } from 'lucide-react';
 import { useDispatch } from 'react-redux';
-import { logoutRequest } from '../../store/redux/AuthSlice';
+import { logoutRequest, setShowAuthModal } from '../../store/redux/AuthSlice';
 import { modal } from '../Layout';
 import { useNavigate } from 'react-router-dom';
 import { ROUTERS } from '../../constants/Routers';
 
 const Auth = () => {
-	const { token, user } = useSelector((state) => state.auth);
+	const { user, isShowAuthModal } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [open, setOpen] = useState(false);
 
 	const showModal = () => {
-		setOpen(true);
+		dispatch(setShowAuthModal(true));
 	};
 
 	const handleCancel = () => {
-		setOpen(false);
+		dispatch(setShowAuthModal(false));
 	};
-
-	useEffect(() => {
-		if (token) {
-			setOpen(false);
-		}
-	}, [token]);
 
 	const onClick = ({ key }) => {
 		if (key === '1') {
@@ -82,7 +75,7 @@ const Auth = () => {
 				</Button>
 			)}
 
-			<Modal open={open} onCancel={handleCancel} footer={[]}>
+			<Modal open={isShowAuthModal} onCancel={handleCancel} footer={[]}>
 				<Tabs
 					defaultActiveKey="2"
 					items={[

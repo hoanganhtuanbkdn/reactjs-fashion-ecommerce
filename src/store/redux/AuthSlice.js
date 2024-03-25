@@ -6,6 +6,7 @@ const initialState = {
 	user: null,
 	token: null,
 	fetching: false,
+	isShowAuthModal: false,
 };
 
 export const authSlice = createSlice({
@@ -53,6 +54,9 @@ export const authSlice = createSlice({
 		updateUserFailure: (state) => {
 			state.fetching = false;
 		},
+		setShowAuthModal: (state, action) => {
+			state.isShowAuthModal = action.payload;
+		},
 	},
 });
 
@@ -68,10 +72,13 @@ export const {
 	updateUserRequest,
 	updateUserSuccess,
 	updateUserFailure,
+	setShowAuthModal,
 } = authSlice.actions;
 
 export const AUTH_PERSIST_KEY = 'authPersist';
 
+// Đoạn code này nhằm khai báo cho persist rằng chúng ta chỉ cần lưu token và user và persist,
+// những dữ liệu còn lại như fetching hay isShowAuthModal thì không cần lưu
 export const AuthReducer = persistReducer(
 	{
 		storage,
