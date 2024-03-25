@@ -15,6 +15,7 @@ const createServiceApi = () => {
 	const register = async (payload) => api.post('/register', payload);
 
 	const getProducts = (params) => api.get('/products', params);
+	const getProductBySlug = (params) => api.get('/products', params);
 
 	const getCategories = () => api.get('/categories?_embed=products');
 
@@ -31,6 +32,7 @@ const createServiceApi = () => {
 		login,
 		register,
 		getProducts,
+		getProductBySlug,
 		getCategories,
 		createOrder,
 		createOrderDetails,

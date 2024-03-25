@@ -4,7 +4,7 @@ import ProductLoading from '../components/ProductLoading';
 import ProductHeader from '../components/ProductHeader';
 import ProductSidebar from '../components/ProductSidebar';
 import { useSearchParams } from 'react-router-dom';
-import ProductItem from '../components/ProductItem';
+import ProductItem from './ProductItem';
 import { insertObjectIf } from '../utils';
 const Products = () => {
 	const [searchParams] = useSearchParams();
